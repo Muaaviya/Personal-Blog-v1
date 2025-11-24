@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import {
   Github,
-  Twitter,
   Linkedin,
   Mail,
   Heart,
@@ -20,7 +19,7 @@ const About = () => {
     {
       icon: Instagram,
       label: "Instagram",
-      href: "https://instagram.com/muaaviyaansari007",
+      href: "https://www.instagram.com/muaaviyaansari007",
     },
     { icon: Github, label: "GitHub", href: "https://github.com/Muaaviya" },
     {
