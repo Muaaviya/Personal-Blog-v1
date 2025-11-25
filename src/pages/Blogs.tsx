@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
 import { blogPosts, Category } from "@/data/blogPosts";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 
 const Blogs = () => {
   const [selectedCategory, setSelectedCategory] = useState<Category>("All");
@@ -41,6 +41,14 @@ const Blogs = () => {
         post.category.toLowerCase().includes(query)
       );
     });
+
+  const hasActiveFilters =
+    searchQuery.trim() !== "" || selectedCategory !== "All";
+
+  const handleClearFilters = () => {
+    setSearchQuery("");
+    setSelectedCategory("All");
+  };
 
   return (
     <div
@@ -90,7 +98,7 @@ const Blogs = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.5 }}
-          className="flex flex-wrap justify-center gap-3 mb-12"
+          className="flex flex-wrap justify-center gap-3 mb-8"
         >
           {categories.map((category, index) => (
             <motion.div
@@ -113,6 +121,26 @@ const Blogs = () => {
           ))}
         </motion.div>
 
+        {/* Clear Filters Button */}
+        {hasActiveFilters && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="flex justify-center mb-12"
+          >
+            <Button
+              onClick={handleClearFilters}
+              variant="outline"
+              size="lg"
+              className="gap-2"
+            >
+              <X className="h-4 w-4" />
+              Clear All Filters
+            </Button>
+          </motion.div>
+        )}
+
         {/* Blog Grid */}
         <AnimatePresence mode="wait">
           <motion.div
@@ -123,27 +151,51 @@ const Blogs = () => {
             transition={{ duration: 0.3 }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           >
-            {isLoading
-              ? Array.from({ length: 6 }).map((_, index) => (
-                  <BlogCardSkeleton key={index} />
-                ))
-              : filteredPosts.map((post, index) => (
-                  <Link to={`/blog/${post.slug}`} key={post.id}>
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: index * 0.1, duration: 0.3 }}
-                    >
-                      <BlogCard
-                        title={post.title}
-                        excerpt={post.excerpt}
-                        category={post.category}
-                        date={post.date}
-                        readTime={post.readTime}
-                      />
-                    </motion.div>
-                  </Link>
-                ))}
+            {isLoading ? (
+              Array.from({ length: 6 }).map((_, index) => (
+                <BlogCardSkeleton key={index} />
+              ))
+            ) : filteredPosts.length === 0 ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="col-span-full flex flex-col items-center justify-center py-20 px-4"
+              >
+                <div className="text-center space-y-4 max-w-md">
+                  <div className="text-6xl mb-4">🔍</div>
+                  <h3 className="text-2xl font-semibold">No Posts Found</h3>
+                  <p className="text-muted-foreground">
+                    We couldn't find any blog posts matching your search
+                    criteria. Try adjusting your filters or search query.
+                  </p>
+                  <Button
+                    onClick={handleClearFilters}
+                    size="lg"
+                    className="mt-4"
+                  >
+                    Clear All Filters
+                  </Button>
+                </div>
+              </motion.div>
+            ) : (
+              filteredPosts.map((post, index) => (
+                <Link to={`/blog/${post.slug}`} key={post.id}>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: index * 0.1, duration: 0.3 }}
+                  >
+                    <BlogCard
+                      title={post.title}
+                      excerpt={post.excerpt}
+                      category={post.category}
+                      date={post.date}
+                      readTime={post.readTime}
+                    />
+                  </motion.div>
+                </Link>
+              ))
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
