@@ -1,10 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import React, {
-  forwardRef,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-} from "react";
+import React, { forwardRef, useLayoutEffect, useMemo, useRef } from "react";
 import { Canvas, useFrame, useThree, type RootState } from "@react-three/fiber";
 import { Color, Mesh, ShaderMaterial, type IUniform } from "three";
 
@@ -95,7 +90,7 @@ interface SilkPlaneProps {
 
 const SilkPlane = forwardRef<Mesh, SilkPlaneProps>(function SilkPlane(
   { uniforms },
-  ref,
+  ref
 ) {
   const { viewport } = useThree();
 
@@ -160,7 +155,7 @@ const Silk: React.FC<SilkProps> = ({
       uRotation: { value: rotation },
       uTime: { value: 0 },
     }),
-    [speed, scale, noiseIntensity, color, rotation],
+    [speed, scale, noiseIntensity, color, rotation]
   );
 
   return (
