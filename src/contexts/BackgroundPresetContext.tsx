@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 
 export const backgroundPresets = [
   {
@@ -35,6 +41,8 @@ export const backgroundPresets = [
   },
 ];
 
+const STORAGE_KEY = "background-preset";
+
 interface BackgroundPresetContextType {
   currentPreset: number;
   setCurrentPreset: (index: number) => void;
@@ -49,7 +57,14 @@ export const BackgroundPresetProvider = ({
 }: {
   children: ReactNode;
 }) => {
-  const [currentPreset, setCurrentPreset] = useState(0);
+  const [currentPreset, setCurrentPreset] = useState(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? parseInt(saved, 10) : 0;
+  });
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, currentPreset.toString());
+  }, [currentPreset]);
 
   return (
     <BackgroundPresetContext.Provider
