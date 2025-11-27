@@ -1,7 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Sun } from "lucide-react";
-import ThemeToggle from "./ThemeToggle";
 import { motion } from "framer-motion";
 import {
   DropdownMenu,
@@ -112,7 +111,6 @@ const Navigation = () => {
               </Button>
             </motion.div>
           </Link>
-          <ThemeToggle />
         </div>
       </div>
     </motion.nav>
