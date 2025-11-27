@@ -1,11 +1,48 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Palette } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { motion } from "framer-motion";
 import Silk from "@/components/Silk";
+import { useState } from "react";
+
+const backgroundPresets = [
+  {
+    name: "Purple Silk",
+    color: "#7B7481",
+    speed: 5,
+    scale: 1,
+    noiseIntensity: 1.5,
+    rotation: 0,
+  },
+  {
+    name: "Ocean Wave",
+    color: "#4A90E2",
+    speed: 3,
+    scale: 1.2,
+    noiseIntensity: 2,
+    rotation: 0.5,
+  },
+  {
+    name: "Sunset Glow",
+    color: "#E2774A",
+    speed: 7,
+    scale: 0.8,
+    noiseIntensity: 1,
+    rotation: -0.3,
+  },
+  {
+    name: "Forest Dream",
+    color: "#5E9B7E",
+    speed: 4,
+    scale: 1.5,
+    noiseIntensity: 1.8,
+    rotation: 0.2,
+  },
+];
 
 const Index = () => {
+  const [currentPreset, setCurrentPreset] = useState(0);
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -14,12 +51,42 @@ const Index = () => {
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
         {/* 3D Silk Background */}
         <Silk
-          speed={5}
-          scale={1}
-          color="#7B7481"
-          noiseIntensity={1.5}
-          rotation={0}
+          speed={backgroundPresets[currentPreset].speed}
+          scale={backgroundPresets[currentPreset].scale}
+          color={backgroundPresets[currentPreset].color}
+          noiseIntensity={backgroundPresets[currentPreset].noiseIntensity}
+          rotation={backgroundPresets[currentPreset].rotation}
         />
+
+        {/* Background Preset Selector */}
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="absolute top-24 right-4 z-20 bg-card/80 backdrop-blur-sm rounded-lg p-3 border border-border shadow-lg"
+        >
+          <div className="flex items-center gap-2 mb-2">
+            <Palette className="h-4 w-4 text-primary" />
+            <span className="text-xs font-medium text-foreground">
+              Background
+            </span>
+          </div>
+          <div className="flex flex-col gap-2">
+            {backgroundPresets.map((preset, index) => (
+              <button
+                key={preset.name}
+                onClick={() => setCurrentPreset(index)}
+                className={`text-xs px-3 py-1.5 rounded-md transition-all ${
+                  currentPreset === index
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-background hover:bg-accent text-foreground"
+                }`}
+              >
+                {preset.name}
+              </button>
+            ))}
+          </div>
+        </motion.div>
 
         {/* Hero Content */}
         <div className="container mx-auto px-4 relative z-10">
