@@ -62,18 +62,18 @@ const Blogs = () => {
 
       <Navigation />
 
-      <div className="container mx-auto px-4 pt-32 pb-20 relative z-10">
+      <div className="container mx-auto px-4 pt-24 sm:pt-32 pb-12 sm:pb-20 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16 space-y-4"
+          className="text-center mb-10 sm:mb-16 space-y-3 sm:space-y-4"
         >
-          <h1 className="font-serif text-5xl md:text-6xl font-bold">
+          <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl font-bold">
             Explore <span className="text-primary">My Thoughts</span>
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto px-2">
             Dive into a curated collection of stories, reflections, and ideas across different themes of life.
           </p>
         </motion.div>
@@ -102,7 +102,7 @@ const Blogs = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.5 }}
-          className="flex flex-wrap justify-center gap-3 mb-8"
+          className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-6 sm:mb-8"
         >
           {categories.map((category, index) => (
             <motion.div
@@ -116,8 +116,8 @@ const Blogs = () => {
               <Button
                 onClick={() => setSelectedCategory(category)}
                 variant={selectedCategory === category ? "default" : "outline"}
-                size="lg"
-                className="min-w-[120px]"
+                size="sm"
+                className="min-w-[80px] sm:min-w-[120px] text-xs sm:text-sm"
               >
                 {category}
               </Button>
@@ -131,7 +131,7 @@ const Blogs = () => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="flex justify-center mb-12"
+            className="flex justify-center mb-8 sm:mb-12"
           >
             <Button
               onClick={handleClearFilters}
@@ -153,7 +153,7 @@ const Blogs = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
           >
             {isLoading ? (
               Array.from({ length: 6 }).map((_, index) => (

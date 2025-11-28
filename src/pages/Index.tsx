@@ -4,10 +4,7 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { motion } from "framer-motion";
 import Silk from "@/components/Silk";
-import {
-  useBackgroundPreset,
-  backgroundPresets,
-} from "@/contexts/BackgroundPresetContext";
+import { useBackgroundPreset, backgroundPresets } from "@/contexts/BackgroundPresetContext";
 
 const Index = () => {
   const { currentPreset } = useBackgroundPreset();
@@ -33,32 +30,29 @@ const Index = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4"
+              className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4"
             >
-              <Sparkles className="h-4 w-4 text-primary" />
-              <span className="text-sm font-medium text-primary">
-                Welcome to my corner of the internet
-              </span>
+              <Sparkles className="h-3 w-3 sm:h-4 sm:w-4 text-primary" />
+              <span className="text-xs sm:text-sm font-medium text-primary">Welcome to my corner of the internet</span>
             </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="font-serif text-5xl md:text-7xl font-bold leading-tight tracking-tight"
+              className="font-serif text-3xl sm:text-5xl md:text-7xl font-bold leading-tight tracking-tight"
             >
               Where Words Find
-              <span className="block text-primary mt-2">Their Purpose</span>
+              <span className="block text-primary mt-1 sm:mt-2">Their Purpose</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+              className="text-base sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed px-2"
             >
-              A collection of thoughts, musings, and stories that explore the
-              beauty of life, love, philosophy, and everything in between.
+              A collection of thoughts, musings, and stories that explore the beauty of life, love, philosophy, and everything in between.
             </motion.p>
 
             <motion.div
@@ -68,13 +62,10 @@ const Index = () => {
               className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4"
             >
               <Link to="/blogs">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Button size="lg" className="group text-lg px-8 py-6">
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Button size="lg" className="group text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6">
                     Start Reading
-                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </motion.div>
               </Link>
@@ -87,9 +78,9 @@ const Index = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-card">
+      <section className="py-12 sm:py-20 bg-card">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 max-w-5xl mx-auto">
             {[
               { number: "100+", label: "Stories Shared" },
               { number: "4", label: "Categories" },
@@ -103,14 +94,10 @@ const Index = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ scale: 1.05 }}
-                className="text-center space-y-2"
+                className="text-center space-y-1 sm:space-y-2"
               >
-                <div className="font-serif text-4xl font-bold text-primary">
-                  {stat.number}
-                </div>
-                <div className="text-sm text-muted-foreground uppercase tracking-wider">
-                  {stat.label}
-                </div>
+                <div className="font-serif text-2xl sm:text-4xl font-bold text-primary">{stat.number}</div>
+                <div className="text-xs sm:text-sm text-muted-foreground uppercase tracking-wider">{stat.label}</div>
               </motion.div>
             ))}
           </div>

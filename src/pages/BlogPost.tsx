@@ -12,7 +12,7 @@ const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
 
-  const post = blogPosts.find((p) => p.slug === slug);
+  const post = blogPosts.find(p => p.slug === slug);
 
   if (!post) {
     return (
@@ -20,9 +20,7 @@ const BlogPost = () => {
         <Navigation />
         <div className="container mx-auto px-4 pt-32 pb-20 text-center">
           <h1 className="font-serif text-4xl font-bold mb-4">Post Not Found</h1>
-          <p className="text-muted-foreground mb-8">
-            The blog post you're looking for doesn't exist.
-          </p>
+          <p className="text-muted-foreground mb-8">The blog post you're looking for doesn't exist.</p>
           <Button onClick={() => navigate("/blogs")}>
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Blogs
@@ -44,7 +42,7 @@ const BlogPost = () => {
       <ReadingProgress />
       <Navigation />
 
-      <article className="container mx-auto px-4 pt-32 pb-20 max-w-4xl">
+      <article className="container mx-auto px-4 pt-24 sm:pt-32 pb-12 sm:pb-20 max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -74,9 +72,7 @@ const BlogPost = () => {
             transition={{ duration: 0.4, delay: 0.3 }}
             className="mb-6"
           >
-            <Badge
-              className={`${categoryColors[post.category]} text-sm px-4 py-1`}
-            >
+            <Badge className={`${categoryColors[post.category]} text-sm px-4 py-1`}>
               {post.category}
             </Badge>
           </motion.div>
@@ -86,7 +82,7 @@ const BlogPost = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6"
+            className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6"
           >
             {post.title}
           </motion.h1>
@@ -96,9 +92,9 @@ const BlogPost = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, delay: 0.5 }}
-            className="flex flex-col gap-6 mb-12 pb-8 border-b border-border"
+            className="flex flex-col gap-4 sm:gap-6 mb-8 sm:mb-12 pb-6 sm:pb-8 border-b border-border"
           >
-            <div className="flex items-center gap-6 text-muted-foreground">
+            <div className="flex items-center gap-4 sm:gap-6 text-muted-foreground text-sm sm:text-base">
               <div className="flex items-center gap-2">
                 <Calendar className="h-4 w-4" />
                 <span>{post.date}</span>
@@ -108,7 +104,10 @@ const BlogPost = () => {
                 <span>{post.readTime}</span>
               </div>
             </div>
-            <SocialShare title={post.title} url={window.location.href} />
+            <SocialShare
+              title={post.title}
+              url={window.location.href}
+            />
           </motion.div>
 
           {/* Content */}
@@ -118,13 +117,13 @@ const BlogPost = () => {
             transition={{ duration: 0.6, delay: 0.6 }}
             className="prose prose-lg max-w-none"
           >
-            {post.content.split("\n\n").map((paragraph, index) => (
+            {post.content.split('\n\n').map((paragraph, index) => (
               <motion.p
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
-                className="text-foreground leading-relaxed mb-6 text-lg"
+                className="text-foreground leading-relaxed mb-4 sm:mb-6 text-base sm:text-lg"
               >
                 {paragraph}
               </motion.p>
@@ -136,7 +135,7 @@ const BlogPost = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, delay: 1 }}
-            className="mt-16 pt-8 border-t border-border"
+            className="mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-border"
           >
             <Button
               variant="outline"

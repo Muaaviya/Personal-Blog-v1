@@ -43,7 +43,7 @@ const About = () => {
 
       <Navigation />
 
-      <main className="container mx-auto px-4 pt-24 pb-16 relative z-10">
+      <main className="container mx-auto px-4 pt-20 sm:pt-24 pb-12 sm:pb-16 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -68,7 +68,7 @@ const About = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4"
+              className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4"
             >
               About Me
             </motion.h1>
@@ -91,10 +91,10 @@ const About = () => {
             className="mb-16"
           >
             <Card className="bg-card/80 backdrop-blur-sm">
-              <CardContent className="p-8">
-                <div className="flex items-center gap-3 mb-6">
-                  <Heart className="h-6 w-6 text-primary" />
-                  <h2 className="font-serif text-2xl font-bold text-foreground">My Story</h2>
+              <CardContent className="p-4 sm:p-8">
+                <div className="flex items-center gap-3 mb-4 sm:mb-6">
+                  <Heart className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                  <h2 className="font-serif text-xl sm:text-2xl font-bold text-foreground">My Story</h2>
                 </div>
                 <div className="prose prose-lg max-w-none text-muted-foreground space-y-4">
                   <p>
@@ -118,9 +118,9 @@ const About = () => {
             transition={{ duration: 0.5, delay: 0.6 }}
             className="mb-16"
           >
-            <div className="flex items-center gap-3 mb-8">
-              <BookOpen className="h-6 w-6 text-primary" />
-              <h2 className="font-serif text-2xl font-bold text-foreground">Writing Journey</h2>
+            <div className="flex items-center gap-3 mb-6 sm:mb-8">
+              <BookOpen className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+              <h2 className="font-serif text-xl sm:text-2xl font-bold text-foreground">Writing Journey</h2>
             </div>
             <div className="space-y-6">
               {milestones.map((milestone, index) => (
@@ -131,18 +131,18 @@ const About = () => {
                   transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
                 >
                   <Card className="overflow-hidden hover:shadow-lg transition-shadow bg-card/80 backdrop-blur-sm">
-                    <CardContent className="p-6">
-                      <div className="flex gap-6">
+                    <CardContent className="p-4 sm:p-6">
+                      <div className="flex gap-4 sm:gap-6">
                         <div className="flex-shrink-0">
-                          <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-                            <span className="font-bold text-primary">{milestone.year}</span>
+                          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                            <span className="font-bold text-primary text-sm sm:text-base">{milestone.year}</span>
                           </div>
                         </div>
                         <div>
-                          <h3 className="font-serif text-xl font-bold text-foreground mb-2">
+                          <h3 className="font-serif text-lg sm:text-xl font-bold text-foreground mb-1 sm:mb-2">
                             {milestone.title}
                           </h3>
-                          <p className="text-muted-foreground">{milestone.description}</p>
+                          <p className="text-muted-foreground text-sm sm:text-base">{milestone.description}</p>
                         </div>
                       </div>
                     </CardContent>
@@ -159,14 +159,14 @@ const About = () => {
             transition={{ duration: 0.5, delay: 1 }}
             className="text-center"
           >
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <Pen className="h-6 w-6 text-primary" />
-              <h2 className="font-serif text-2xl font-bold text-foreground">Let's Connect</h2>
+            <div className="flex items-center justify-center gap-3 mb-4 sm:mb-6">
+              <Pen className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+              <h2 className="font-serif text-xl sm:text-2xl font-bold text-foreground">Let's Connect</h2>
             </div>
-            <p className="text-muted-foreground mb-8">
+            <p className="text-muted-foreground mb-6 sm:mb-8 text-sm sm:text-base">
               I'd love to hear from you. Follow me on social media or drop me an email.
             </p>
-            <div className="flex justify-center gap-4 flex-wrap">
+            <div className="flex justify-center gap-3 sm:gap-4 flex-wrap">
               {socialLinks.map((link, index) => (
                 <motion.div
                   key={link.label}
