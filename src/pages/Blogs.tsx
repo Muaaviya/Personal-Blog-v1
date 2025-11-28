@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import BlogCard from "@/components/BlogCard";
 import BlogCardSkeleton from "@/components/BlogCardSkeleton";
+import Galaxy from "@/components/Galaxy";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
@@ -20,19 +21,11 @@ const Blogs = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const categories: Category[] = [
-    "All",
-    "Romantic",
-    "Philosophical",
-    "Inspiring",
-    "Daily Blog",
-  ];
+  const categories: Category[] = ["All", "Romantic", "Philosophical", "Inspiring", "Daily Blog"];
 
   const filteredPosts = blogPosts
-    .filter(
-      (post) => selectedCategory === "All" || post.category === selectedCategory
-    )
-    .filter((post) => {
+    .filter(post => selectedCategory === "All" || post.category === selectedCategory)
+    .filter(post => {
       if (!searchQuery.trim()) return true;
       const query = searchQuery.toLowerCase();
       return (
@@ -42,8 +35,7 @@ const Blogs = () => {
       );
     });
 
-  const hasActiveFilters =
-    searchQuery.trim() !== "" || selectedCategory !== "All";
+  const hasActiveFilters = searchQuery.trim() !== "" || selectedCategory !== "All";
 
   const handleClearFilters = () => {
     setSearchQuery("");
@@ -51,13 +43,22 @@ const Blogs = () => {
   };
 
   return (
-    <div
-      className="min-h-screen bg-background"
-      style={{ scrollBehavior: "smooth" }}
-    >
+    <div className="min-h-screen bg-background relative" style={{ scrollBehavior: 'smooth' }}>
+      {/* Galaxy Background */}
+      <div className="fixed inset-0 z-0">
+        <Galaxy
+          mouseRepulsion={true}
+          mouseInteraction={true}
+          density={1.5}
+          glowIntensity={0.5}
+          saturation={0.8}
+          hueShift={240}
+        />
+      </div>
+
       <Navigation />
 
-      <div className="container mx-auto px-4 pt-32 pb-20">
+      <div className="container mx-auto px-4 pt-32 pb-20 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -69,8 +70,7 @@ const Blogs = () => {
             Explore <span className="text-primary">My Thoughts</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Dive into a curated collection of stories, reflections, and ideas
-            across different themes of life.
+            Dive into a curated collection of stories, reflections, and ideas across different themes of life.
           </p>
         </motion.div>
 
@@ -88,7 +88,7 @@ const Blogs = () => {
               placeholder="Search by title, content, or category..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 h-12 text-base"
+              className="pl-10 h-12 text-base bg-background/80 backdrop-blur-sm"
             />
           </div>
         </motion.div>
@@ -165,8 +165,7 @@ const Blogs = () => {
                   <div className="text-6xl mb-4">🔍</div>
                   <h3 className="text-2xl font-semibold">No Posts Found</h3>
                   <p className="text-muted-foreground">
-                    We couldn't find any blog posts matching your search
-                    criteria. Try adjusting your filters or search query.
+                    We couldn't find any blog posts matching your search criteria. Try adjusting your filters or search query.
                   </p>
                   <Button
                     onClick={handleClearFilters}
