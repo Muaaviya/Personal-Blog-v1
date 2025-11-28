@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Sun } from "lucide-react";
+import { BookOpen, Sun, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import {
   DropdownMenu,
@@ -10,14 +10,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  useBackgroundPreset,
-  backgroundPresets,
-} from "@/contexts/BackgroundPresetContext";
+import { useBackgroundPreset, backgroundPresets } from "@/contexts/BackgroundPresetContext";
+import { useGalaxy } from "@/contexts/GalaxyContext";
 
 const Navigation = () => {
   const location = useLocation();
   const { currentPreset, setCurrentPreset } = useBackgroundPreset();
+  const { galaxyEnabled, toggleGalaxy } = useGalaxy();
+
+  const showGalaxyToggle = location.pathname === "/blogs" || location.pathname === "/about";
 
   return (
     <motion.nav
@@ -28,26 +29,18 @@ const Navigation = () => {
     >
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 group">
-          <motion.div
-            whileHover={{ rotate: 15 }}
-            transition={{ duration: 0.2 }}
-          >
+          <motion.div whileHover={{ rotate: 15 }} transition={{ duration: 0.2 }}>
             <BookOpen className="h-6 w-6 text-primary transition-transform" />
           </motion.div>
-          <span className="font-serif text-xl font-bold text-foreground">
-            Thoughts & Musings
-          </span>
+          <span className="font-serif text-xl font-bold text-foreground">Thoughts & Musings</span>
         </Link>
 
         <div className="flex items-center gap-6">
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link
               to="/"
-              className={`text-sm font-medium transition-colors hover:text-primary ${
-                location.pathname === "/"
-                  ? "text-primary"
-                  : "text-muted-foreground"
-              }`}
+              className={`text-sm font-medium transition-colors hover:text-primary ${location.pathname === "/" ? "text-primary" : "text-muted-foreground"
+                }`}
             >
               Home
             </Link>
@@ -55,11 +48,8 @@ const Navigation = () => {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link
               to="/about"
-              className={`text-sm font-medium transition-colors hover:text-primary ${
-                location.pathname === "/about"
-                  ? "text-primary"
-                  : "text-muted-foreground"
-              }`}
+              className={`text-sm font-medium transition-colors hover:text-primary ${location.pathname === "/about" ? "text-primary" : "text-muted-foreground"
+                }`}
             >
               About
             </Link>
@@ -88,17 +78,27 @@ const Navigation = () => {
                   <DropdownMenuItem
                     key={preset.name}
                     onClick={() => setCurrentPreset(index)}
-                    className={
-                      currentPreset === index
-                        ? "bg-primary text-primary-foreground"
-                        : ""
-                    }
+                    className={currentPreset === index ? "bg-primary text-primary-foreground" : ""}
                   >
                     {preset.name}
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
+          )}
+
+          {/* Galaxy Toggle Button */}
+          {showGalaxyToggle && (
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={toggleGalaxy}
+              className={`flex items-center gap-2 text-sm font-medium transition-colors ${galaxyEnabled ? "text-primary" : "text-muted-foreground hover:text-primary"
+                }`}
+            >
+              <Sparkles className={`h-4 w-4 ${galaxyEnabled ? "fill-primary" : ""}`} />
+              <span>Galaxy {galaxyEnabled ? "On" : "Off"}</span>
+            </motion.button>
           )}
 
           <Link to="/blogs">
