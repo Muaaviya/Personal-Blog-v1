@@ -5,9 +5,12 @@ import Galaxy from "@/components/Galaxy";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useGalaxy } from "@/contexts/GalaxyContext";
 import authorProfile from "@/assets/author-profile.jpg";
 
 const About = () => {
+  const { galaxyEnabled } = useGalaxy();
+
   const socialLinks = [
     { icon: Twitter, label: "Twitter", href: "https://twitter.com" },
     { icon: Github, label: "GitHub", href: "https://github.com" },
@@ -25,16 +28,18 @@ const About = () => {
   return (
     <div className="min-h-screen bg-background relative">
       {/* Galaxy Background */}
-      <div className="fixed inset-0 z-0">
-        <Galaxy
-          mouseRepulsion={true}
-          mouseInteraction={true}
-          density={1.5}
-          glowIntensity={0.5}
-          saturation={0.8}
-          hueShift={240}
-        />
-      </div>
+      {galaxyEnabled && (
+        <div className="fixed inset-0 z-0">
+          <Galaxy
+            mouseRepulsion={true}
+            mouseInteraction={true}
+            density={1.5}
+            glowIntensity={0.5}
+            saturation={0.8}
+            hueShift={240}
+          />
+        </div>
+      )}
 
       <Navigation />
 

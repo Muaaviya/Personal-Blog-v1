@@ -9,11 +9,13 @@ import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
 import { blogPosts, Category } from "@/data/blogPosts";
 import { Search, X } from "lucide-react";
+import { useGalaxy } from "@/contexts/GalaxyContext";
 
 const Blogs = () => {
   const [selectedCategory, setSelectedCategory] = useState<Category>("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const { galaxyEnabled } = useGalaxy();
 
   useEffect(() => {
     // Simulate loading
@@ -45,16 +47,18 @@ const Blogs = () => {
   return (
     <div className="min-h-screen bg-background relative" style={{ scrollBehavior: 'smooth' }}>
       {/* Galaxy Background */}
-      <div className="fixed inset-0 z-0">
-        <Galaxy
-          mouseRepulsion={true}
-          mouseInteraction={true}
-          density={1.5}
-          glowIntensity={0.5}
-          saturation={0.8}
-          hueShift={240}
-        />
-      </div>
+      {galaxyEnabled && (
+        <div className="fixed inset-0 z-0">
+          <Galaxy
+            mouseRepulsion={true}
+            mouseInteraction={true}
+            density={1.5}
+            glowIntensity={0.5}
+            saturation={0.8}
+            hueShift={240}
+          />
+        </div>
+      )}
 
       <Navigation />
 
