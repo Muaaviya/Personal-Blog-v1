@@ -1,5 +1,8 @@
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Github, Twitter, Linkedin, Mail, Heart, BookOpen, Pen } from "lucide-react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navigation from "@/components/Navigation";
 import Galaxy from "@/components/Galaxy";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -8,8 +11,15 @@ import { Button } from "@/components/ui/button";
 import { useGalaxy } from "@/contexts/GalaxyContext";
 import authorProfile from "@/assets/author-profile.jpg";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const About = () => {
   const { galaxyEnabled } = useGalaxy();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const profileRef = useRef<HTMLDivElement>(null);
+  const bioRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const socialRef = useRef<HTMLDivElement>(null);
 
   const socialLinks = [
     { icon: Twitter, label: "Twitter", href: "https://twitter.com" },
@@ -25,8 +35,93 @@ const About = () => {
     { year: "2024", title: "This Blog", description: "Launched this space to share deeper reflections and connect" },
   ];
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Profile section parallax - slower scroll
+      if (profileRef.current) {
+        gsap.to(profileRef.current, {
+          yPercent: -20,
+          ease: "none",
+          scrollTrigger: {
+            trigger: profileRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1,
+          },
+        });
+      }
+
+      // Bio section - slide in from left with parallax
+      if (bioRef.current) {
+        gsap.fromTo(
+          bioRef.current,
+          { x: -100, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: bioRef.current,
+              start: "top 80%",
+              end: "top 40%",
+              scrub: 1,
+            },
+          }
+        );
+      }
+
+      // Timeline section - staggered parallax for each milestone
+      if (timelineRef.current) {
+        const cards = timelineRef.current.querySelectorAll(".milestone-card");
+        cards.forEach((card, index) => {
+          gsap.fromTo(
+            card,
+            {
+              x: index % 2 === 0 ? -80 : 80,
+              opacity: 0,
+              scale: 0.9
+            },
+            {
+              x: 0,
+              opacity: 1,
+              scale: 1,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 85%",
+                end: "top 50%",
+                scrub: 1,
+              },
+            }
+          );
+        });
+      }
+
+      // Social section - fade in with upward parallax
+      if (socialRef.current) {
+        gsap.fromTo(
+          socialRef.current,
+          { y: 80, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: socialRef.current,
+              start: "top 90%",
+              end: "top 60%",
+              scrub: 1,
+            },
+          }
+        );
+      }
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <div className="min-h-screen bg-background relative">
+    <div ref={containerRef} className="min-h-screen bg-background relative">
       {/* Galaxy Background */}
       {galaxyEnabled && (
         <div className="fixed inset-0 z-0">
@@ -51,7 +146,7 @@ const About = () => {
           className="max-w-4xl mx-auto"
         >
           {/* Profile Section */}
-          <div className="text-center mb-16">
+          <div ref={profileRef} className="text-center mb-16">
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -84,12 +179,7 @@ const About = () => {
           </div>
 
           {/* Bio Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="mb-16"
-          >
+          <div ref={bioRef} className="mb-16">
             <Card className="bg-card/80 backdrop-blur-sm">
               <CardContent className="p-4 sm:p-8">
                 <div className="flex items-center gap-3 mb-4 sm:mb-6">
@@ -109,27 +199,17 @@ const About = () => {
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </div>
 
           {/* Writing Journey Timeline */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="mb-16"
-          >
+          <div ref={timelineRef} className="mb-16">
             <div className="flex items-center gap-3 mb-6 sm:mb-8">
               <BookOpen className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
               <h2 className="font-serif text-xl sm:text-2xl font-bold text-foreground">Writing Journey</h2>
             </div>
             <div className="space-y-6">
-              {milestones.map((milestone, index) => (
-                <motion.div
-                  key={milestone.year}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
-                >
+              {milestones.map((milestone) => (
+                <div key={milestone.year} className="milestone-card">
                   <Card className="overflow-hidden hover:shadow-lg transition-shadow bg-card/80 backdrop-blur-sm">
                     <CardContent className="p-4 sm:p-6">
                       <div className="flex gap-4 sm:gap-6">
@@ -147,18 +227,13 @@ const About = () => {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* Social Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 1 }}
-            className="text-center"
-          >
+          <div ref={socialRef} className="text-center">
             <div className="flex items-center justify-center gap-3 mb-4 sm:mb-6">
               <Pen className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
               <h2 className="font-serif text-xl sm:text-2xl font-bold text-foreground">Let's Connect</h2>
@@ -172,7 +247,7 @@ const About = () => {
                   key={link.label}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: 1.1 + index * 0.1 }}
+                  transition={{ duration: 0.3, delay: 0.2 + index * 0.1 }}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -190,7 +265,7 @@ const About = () => {
                 </motion.div>
               ))}
             </div>
-          </motion.div>
+          </div>
         </motion.div>
       </main>
     </div>
