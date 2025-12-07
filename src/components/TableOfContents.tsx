@@ -20,58 +20,67 @@ const TableOfContents = ({ contentRef }: TableOfContentsProps) => {
     const [sections, setSections] = useState<Section[]>([]);
     const [activeSection, setActiveSection] = useState<string>("");
     const [isExpanded, setIsExpanded] = useState(false);
+    const [isReady, setIsReady] = useState(false);
     const tocRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        if (!contentRef.current) return;
+        // Wait for next frame to ensure DOM is painted
+        const timer = setTimeout(() => {
+            if (!contentRef.current) return;
 
-        // Get all paragraphs and create sections from them
-        const paragraphs = contentRef.current.querySelectorAll('.blog-paragraph');
-        const extractedSections: Section[] = [];
+            // Get all paragraphs and create sections from them
+            const paragraphs = contentRef.current.querySelectorAll('.blog-paragraph');
+            if (paragraphs.length < 2) return;
 
-        paragraphs.forEach((para, index) => {
-            const text = para.textContent || "";
-            // Create a title from the first few words of each paragraph
-            const words = text.split(' ').slice(0, 4).join(' ');
-            const title = words.length > 30 ? words.substring(0, 30) + '...' : words + '...';
-            const id = `section-${index}`;
-            para.id = id;
+            const extractedSections: Section[] = [];
 
-            extractedSections.push({
-                id,
-                title,
-                element: para
+            paragraphs.forEach((para, index) => {
+                const text = para.textContent || "";
+                // Create a title from the first few words of each paragraph
+                const words = text.split(' ').slice(0, 4).join(' ');
+                const title = words.length > 30 ? words.substring(0, 30) + '...' : words + '...';
+                const id = `section-${index}`;
+                para.id = id;
+
+                extractedSections.push({
+                    id,
+                    title,
+                    element: para
+                });
             });
-        });
 
-        setSections(extractedSections);
+            setSections(extractedSections);
+            setIsReady(true);
 
-        // Set up ScrollTrigger for each section
-        const triggers: ScrollTrigger[] = [];
+            // Set up ScrollTrigger for each section
+            const triggers: ScrollTrigger[] = [];
 
-        extractedSections.forEach((section) => {
-            const trigger = ScrollTrigger.create({
-                trigger: section.element,
-                start: "top 40%",
-                end: "bottom 40%",
-                onEnter: () => setActiveSection(section.id),
-                onEnterBack: () => setActiveSection(section.id),
+            extractedSections.forEach((section) => {
+                const trigger = ScrollTrigger.create({
+                    trigger: section.element,
+                    start: "top 40%",
+                    end: "bottom 40%",
+                    onEnter: () => setActiveSection(section.id),
+                    onEnterBack: () => setActiveSection(section.id),
+                });
+                triggers.push(trigger);
             });
-            triggers.push(trigger);
-        });
 
-        // Animate TOC on load
-        if (tocRef.current) {
-            gsap.fromTo(tocRef.current,
-                { opacity: 0, x: 20 },
-                { opacity: 1, x: 0, duration: 0.6, delay: 0.5, ease: "power2.out" }
-            );
-        }
+            // Animate TOC on load
+            if (tocRef.current) {
+                gsap.fromTo(tocRef.current,
+                    { opacity: 0, x: 20 },
+                    { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }
+                );
+            }
 
-        return () => {
-            triggers.forEach(trigger => trigger.kill());
-        };
-    }, [contentRef]);
+            return () => {
+                triggers.forEach(trigger => trigger.kill());
+            };
+        }, 100);
+
+        return () => clearTimeout(timer);
+    }, []);
 
     const scrollToSection = (id: string) => {
         const element = document.getElementById(id);
@@ -86,14 +95,14 @@ const TableOfContents = ({ contentRef }: TableOfContentsProps) => {
         setIsExpanded(false);
     };
 
-    if (sections.length < 2) return null;
+    if (!isReady || sections.length < 2) return null;
 
     return (
         <>
             {/* Desktop TOC - Fixed sidebar */}
             <div
                 ref={tocRef}
-                className="hidden lg:block fixed right-8 top-1/2 -translate-y-1/2 z-40 opacity-0"
+                className="hidden lg:block fixed right-8 top-1/2 -translate-y-1/2 z-40"
             >
                 <div className="bg-card/80 backdrop-blur-sm border border-border rounded-lg p-4 max-w-[200px] shadow-lg">
                     <div className="flex items-center gap-2 mb-3 text-sm font-medium text-foreground">
