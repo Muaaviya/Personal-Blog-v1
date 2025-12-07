@@ -138,7 +138,7 @@ const About = () => {
 
       <Navigation />
 
-      <main className="container mx-auto px-4 pt-20 sm:pt-24 pb-12 sm:pb-16 relative z-10">
+      <main className="container mx-auto px-4 pt-20 sm:pt-24 pb-32 sm:pb-40 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

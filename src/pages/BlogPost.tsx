@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navigation from "@/components/Navigation";
 import ReadingProgress from "@/components/ReadingProgress";
 import SocialShare from "@/components/SocialShare";
+import TableOfContents from "@/components/TableOfContents";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, ArrowLeft } from "lucide-react";
@@ -108,6 +109,7 @@ const BlogPost = () => {
     <div className="min-h-screen bg-background">
       <ReadingProgress />
       <Navigation />
+      <TableOfContents contentRef={contentRef} />
 
       <article ref={articleRef} className="container mx-auto px-4 pt-24 sm:pt-32 pb-12 sm:pb-20 max-w-4xl">
         {/* Header section with parallax */}
