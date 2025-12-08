@@ -85,6 +85,7 @@ export const blogPosts: BlogPost[] = [
     content: [
       { type: "heading", content: "Morning Rituals" },
       { type: "paragraph", content: "Today's musings over my morning coffee: the simple pleasure of watching steam rise from a cup, the quiet before the world awakens, and finding gratitude in small moments." },
+      { type: "image", src: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80", alt: "Steaming cup of coffee on wooden table", caption: "The quiet meditation of morning coffee" },
       { type: "heading", content: "The Sacred Hours" },
       { type: "paragraph", content: "There's something sacred about the early morning hours. The world is still asleep, the notifications haven't started flooding in, and it's just you, your thoughts, and a warm cup of coffee. In these quiet moments, I find a kind of meditation." },
       { type: "subheading", content: "Lessons from Steam" },
