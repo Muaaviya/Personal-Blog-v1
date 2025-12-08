@@ -10,6 +10,7 @@ interface Section {
     id: string;
     title: string;
     element: Element;
+    level: "h2" | "h3";
 }
 
 interface TableOfContentsProps {
@@ -28,24 +29,22 @@ const TableOfContents = ({ contentRef }: TableOfContentsProps) => {
         const timer = setTimeout(() => {
             if (!contentRef.current) return;
 
-            // Get all paragraphs and create sections from them
-            const paragraphs = contentRef.current.querySelectorAll('.blog-paragraph');
-            if (paragraphs.length < 2) return;
+            // Get all headings (h2, h3) from the blog content
+            const headings = contentRef.current.querySelectorAll('.blog-heading, .blog-subheading');
+            if (headings.length < 2) return;
 
             const extractedSections: Section[] = [];
 
-            paragraphs.forEach((para, index) => {
-                const text = para.textContent || "";
-                // Create a title from the first few words of each paragraph
-                const words = text.split(' ').slice(0, 4).join(' ');
-                const title = words.length > 30 ? words.substring(0, 30) + '...' : words + '...';
-                const id = `section-${index}`;
-                para.id = id;
+            headings.forEach((heading, index) => {
+                const text = heading.textContent || "";
+                const id = `section-${heading.id?.split('-')[1] || index}`;
+                const isSubheading = heading.classList.contains('blog-subheading');
 
                 extractedSections.push({
-                    id,
-                    title,
-                    element: para
+                    id: heading.id || id,
+                    title: text,
+                    element: heading,
+                    level: isSubheading ? "h3" : "h2"
                 });
             });
 
@@ -104,25 +103,25 @@ const TableOfContents = ({ contentRef }: TableOfContentsProps) => {
                 ref={tocRef}
                 className="hidden lg:block fixed right-8 top-1/2 -translate-y-1/2 z-40"
             >
-                <div className="bg-card/80 backdrop-blur-sm border border-border rounded-lg p-4 max-w-[200px] shadow-lg">
+                <div className="bg-card/80 backdrop-blur-sm border border-border rounded-lg p-4 max-w-[220px] shadow-lg">
                     <div className="flex items-center gap-2 mb-3 text-sm font-medium text-foreground">
                         <List className="h-4 w-4" />
                         <span>Contents</span>
                     </div>
                     <nav className="space-y-1">
-                        {sections.map((section, index) => (
+                        {sections.map((section) => (
                             <button
                                 key={section.id}
                                 onClick={() => scrollToSection(section.id)}
                                 className={cn(
                                     "block w-full text-left text-xs py-1.5 px-2 rounded transition-all duration-300",
                                     "hover:bg-accent/50",
+                                    section.level === "h3" && "pl-4",
                                     activeSection === section.id
                                         ? "bg-primary/10 text-primary font-medium border-l-2 border-primary"
                                         : "text-muted-foreground"
                                 )}
                             >
-                                <span className="text-muted-foreground/60 mr-1">{index + 1}.</span>
                                 {section.title}
                             </button>
                         ))}
@@ -147,19 +146,19 @@ const TableOfContents = ({ contentRef }: TableOfContentsProps) => {
                     <div className="absolute bottom-14 right-0 bg-card border border-border rounded-lg p-3 w-56 shadow-xl animate-fade-in">
                         <div className="text-sm font-medium mb-2 text-foreground">Contents</div>
                         <nav className="space-y-1 max-h-60 overflow-y-auto">
-                            {sections.map((section, index) => (
+                            {sections.map((section) => (
                                 <button
                                     key={section.id}
                                     onClick={() => scrollToSection(section.id)}
                                     className={cn(
                                         "block w-full text-left text-xs py-1.5 px-2 rounded transition-all",
                                         "hover:bg-accent/50",
+                                        section.level === "h3" && "pl-4",
                                         activeSection === section.id
                                             ? "bg-primary/10 text-primary font-medium"
                                             : "text-muted-foreground"
                                     )}
                                 >
-                                    <span className="text-muted-foreground/60 mr-1">{index + 1}.</span>
                                     {section.title}
                                 </button>
                             ))}
