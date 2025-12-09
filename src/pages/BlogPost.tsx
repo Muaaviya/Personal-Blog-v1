@@ -20,7 +20,7 @@ const BlogPost = () => {
     const headerRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
 
-    const post = blogPosts.find((p) => p.slug === slug);
+    const post = blogPosts.find(p => p.slug === slug);
 
     useEffect(() => {
         if (!post || !articleRef.current) return;
@@ -34,21 +34,18 @@ const BlogPost = () => {
                     trigger: articleRef.current,
                     start: "top top",
                     end: "30% top",
-                    scrub: 0.5,
-                },
+                    scrub: 0.5
+                }
             });
 
             // Content blocks scroll animation
-            const blocks = contentRef.current?.querySelectorAll(
-                ".blog-content-block"
-            );
+            const blocks = contentRef.current?.querySelectorAll('.blog-content-block');
             blocks?.forEach((block) => {
-                gsap.fromTo(
-                    block,
+                gsap.fromTo(block,
                     {
                         opacity: 0,
                         y: 40,
-                        filter: "blur(4px)",
+                        filter: "blur(4px)"
                     },
                     {
                         opacity: 1,
@@ -60,25 +57,24 @@ const BlogPost = () => {
                             trigger: block,
                             start: "top 85%",
                             end: "top 60%",
-                            toggleActions: "play none none reverse",
-                        },
+                            toggleActions: "play none none reverse"
+                        }
                     }
                 );
             });
 
             // Back button at bottom animation
-            gsap.fromTo(
-                ".bottom-back-btn",
+            gsap.fromTo('.bottom-back-btn',
                 { opacity: 0, x: -30 },
                 {
                     opacity: 1,
                     x: 0,
                     duration: 0.6,
                     scrollTrigger: {
-                        trigger: ".bottom-back-btn",
+                        trigger: '.bottom-back-btn',
                         start: "top 90%",
-                        toggleActions: "play none none reverse",
-                    },
+                        toggleActions: "play none none reverse"
+                    }
                 }
             );
         }, articleRef);
@@ -143,9 +139,7 @@ const BlogPost = () => {
                 <Navigation />
                 <div className="container mx-auto px-4 pt-32 pb-20 text-center">
                     <h1 className="font-serif text-4xl font-bold mb-4">Post Not Found</h1>
-                    <p className="text-muted-foreground mb-8">
-                        The blog post you're looking for doesn't exist.
-                    </p>
+                    <p className="text-muted-foreground mb-8">The blog post you're looking for doesn't exist.</p>
                     <Button onClick={() => navigate("/blogs")}>
                         <ArrowLeft className="mr-2 h-4 w-4" />
                         Back to Blogs
@@ -168,10 +162,19 @@ const BlogPost = () => {
             <Navigation />
             <TableOfContents contentRef={contentRef} />
 
-            <article
-                ref={articleRef}
-                className="container mx-auto px-4 pt-24 sm:pt-32 pb-12 sm:pb-20 max-w-4xl"
-            >
+            <article ref={articleRef} className="container mx-auto px-4 pt-24 sm:pt-32 pb-12 sm:pb-20 max-w-4xl">
+                {/* Hero Image */}
+                {post.heroImage && (
+                    <div className="relative -mx-4 sm:mx-0 mb-8 sm:mb-12 overflow-hidden rounded-none sm:rounded-2xl">
+                        <img
+                            src={post.heroImage}
+                            alt={post.title}
+                            className="w-full h-48 sm:h-64 md:h-80 lg:h-96 object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+                    </div>
+                )}
+
                 {/* Header section with parallax */}
                 <div ref={headerRef} className="mb-8 sm:mb-12">
                     {/* Back Button */}
@@ -188,9 +191,7 @@ const BlogPost = () => {
 
                     {/* Category Badge */}
                     <div className="mb-6">
-                        <Badge
-                            className={`${categoryColors[post.category]} text-sm px-4 py-1`}
-                        >
+                        <Badge className={`${categoryColors[post.category]} text-sm px-4 py-1`}>
                             {post.category}
                         </Badge>
                     </div>
@@ -212,7 +213,10 @@ const BlogPost = () => {
                                 <span>{post.readTime}</span>
                             </div>
                         </div>
-                        <SocialShare title={post.title} url={window.location.href} />
+                        <SocialShare
+                            title={post.title}
+                            url={window.location.href}
+                        />
                     </div>
                 </div>
 

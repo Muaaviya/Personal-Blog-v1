@@ -17,6 +17,7 @@ export interface BlogPost {
   category: Exclude<Category, "All">;
   date: string;
   readTime: string;
+  heroImage?: string;
 }
 
 export const blogPosts: BlogPost[] = [
@@ -28,6 +29,7 @@ export const blogPosts: BlogPost[] = [
     content: [
       { type: "heading", content: "The Essence of Love" },
       { type: "paragraph", content: "Love is not just a feeling; it's a commitment to see beauty in the ordinary moments we share. Every glance, every touch, every word spoken in tenderness builds a cathedral of memories that time cannot erode." },
+      { type: "image", src: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=800&q=80", alt: "Two hands holding together in soft light", caption: "Love lives in the smallest gestures" },
       { type: "heading", content: "Finding Love in Small Gestures" },
       { type: "paragraph", content: "In the rush of modern life, we often forget that love thrives in the smallest gestures. It's in the morning coffee made just right, the text message sent during a busy day, the hand that reaches out in the darkness. These moments may seem insignificant, but they are the threads that weave the tapestry of a deep, enduring love." },
       { type: "subheading", content: "The Power of Presence" },
@@ -38,6 +40,7 @@ export const blogPosts: BlogPost[] = [
     category: "Romantic",
     date: "March 15, 2024",
     readTime: "5 min read",
+    heroImage: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=1200&q=80",
   },
   {
     id: 2,
@@ -47,6 +50,7 @@ export const blogPosts: BlogPost[] = [
     content: [
       { type: "heading", content: "The Digital Age and Human Authenticity" },
       { type: "paragraph", content: "In a world dominated by algorithms and artificial intelligence, what does it mean to be authentically human? We explore the essence of existence and the responsibility of freedom in our contemporary digital age." },
+      { type: "image", src: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&q=80", alt: "Person silhouette against digital screens", caption: "Navigating authenticity in a digital world" },
       { type: "heading", content: "Existence Precedes Essence" },
       { type: "paragraph", content: "Existentialism reminds us that existence precedes essence. We are not born with a predetermined purpose; instead, we create our meaning through the choices we make. In an era where AI can predict our preferences and automate our decisions, this philosophy becomes more relevant than ever." },
       { type: "subheading", content: "The Paradox of Connection" },
@@ -57,6 +61,7 @@ export const blogPosts: BlogPost[] = [
     category: "Philosophical",
     date: "March 12, 2024",
     readTime: "8 min read",
+    heroImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80",
   },
   {
     id: 3,
@@ -76,6 +81,7 @@ export const blogPosts: BlogPost[] = [
     category: "Inspiring",
     date: "March 10, 2024",
     readTime: "4 min read",
+    heroImage: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=1200&q=80",
   },
   {
     id: 4,
@@ -96,6 +102,7 @@ export const blogPosts: BlogPost[] = [
     category: "Daily Blog",
     date: "March 8, 2024",
     readTime: "3 min read",
+    heroImage: "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=1200&q=80",
   },
   {
     id: 5,
@@ -115,6 +122,7 @@ export const blogPosts: BlogPost[] = [
     category: "Romantic",
     date: "March 5, 2024",
     readTime: "6 min read",
+    heroImage: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=1200&q=80",
   },
   {
     id: 6,
@@ -134,6 +142,7 @@ export const blogPosts: BlogPost[] = [
     category: "Philosophical",
     date: "March 3, 2024",
     readTime: "7 min read",
+    heroImage: "https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=1200&q=80",
   },
   {
     id: 7,
@@ -153,6 +162,7 @@ export const blogPosts: BlogPost[] = [
     category: "Inspiring",
     date: "March 1, 2024",
     readTime: "5 min read",
+    heroImage: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1200&q=80",
   },
   {
     id: 8,
@@ -162,6 +172,7 @@ export const blogPosts: BlogPost[] = [
     content: [
       { type: "heading", content: "The Poetry of Rain" },
       { type: "paragraph", content: "There's something therapeutic about rain. Today I sat by the window, watched the droplets race down the glass, and thought about all the ways water teaches us about resilience and flow." },
+      { type: "image", src: "https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?w=800&q=80", alt: "Rain droplets on window glass", caption: "Watching droplets race down the glass" },
       { type: "heading", content: "Finding Beauty in Gray Skies" },
       { type: "paragraph", content: "Rain has always been my favorite weather. While others complain about gray skies, I find myself drawn to the window, mesmerized by the rhythmic pattern of drops hitting the glass. There's a poetry in rain that speaks to something deep within us." },
       { type: "subheading", content: "Water as Teacher" },
@@ -172,5 +183,6 @@ export const blogPosts: BlogPost[] = [
     category: "Daily Blog",
     date: "February 28, 2024",
     readTime: "4 min read",
+    heroImage: "https://images.unsplash.com/photo-1501691223387-dd0500403074?w=1200&q=80",
   },
 ];
