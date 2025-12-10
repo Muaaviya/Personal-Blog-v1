@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, ArrowLeft } from "lucide-react";
 import { blogPosts, ContentBlock } from "@/data/blogPosts";
+import ScrollToTop from "@/components/ScrollToTop";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -238,6 +239,7 @@ const BlogPost = () => {
                     </Button>
                 </div>
             </article>
+            <ScrollToTop />
         </div>
     );
 };
