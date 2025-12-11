@@ -1,18 +1,14 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
 import Navigation from "@/components/Navigation";
 import ReadingProgress from "@/components/ReadingProgress";
 import SocialShare from "@/components/SocialShare";
 import TableOfContents from "@/components/TableOfContents";
+import ScrollToTop from "@/components/ScrollToTop";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, ArrowLeft } from "lucide-react";
 import { blogPosts, ContentBlock } from "@/data/blogPosts";
-import ScrollToTop from "@/components/ScrollToTop";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const BlogPost = () => {
     const { slug } = useParams<{ slug: string }>();
@@ -23,66 +19,6 @@ const BlogPost = () => {
 
     const post = blogPosts.find(p => p.slug === slug);
 
-    useEffect(() => {
-        if (!post || !articleRef.current) return;
-
-        const ctx = gsap.context(() => {
-            // Header parallax effect
-            gsap.to(headerRef.current, {
-                yPercent: 30,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: articleRef.current,
-                    start: "top top",
-                    end: "30% top",
-                    scrub: 0.5
-                }
-            });
-
-            // Content blocks scroll animation
-            const blocks = contentRef.current?.querySelectorAll('.blog-content-block');
-            blocks?.forEach((block) => {
-                gsap.fromTo(block,
-                    {
-                        opacity: 0,
-                        y: 40,
-                        filter: "blur(4px)"
-                    },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        filter: "blur(0px)",
-                        duration: 0.8,
-                        ease: "power2.out",
-                        scrollTrigger: {
-                            trigger: block,
-                            start: "top 85%",
-                            end: "top 60%",
-                            toggleActions: "play none none reverse"
-                        }
-                    }
-                );
-            });
-
-            // Back button at bottom animation
-            gsap.fromTo('.bottom-back-btn',
-                { opacity: 0, x: -30 },
-                {
-                    opacity: 1,
-                    x: 0,
-                    duration: 0.6,
-                    scrollTrigger: {
-                        trigger: '.bottom-back-btn',
-                        start: "top 90%",
-                        toggleActions: "play none none reverse"
-                    }
-                }
-            );
-        }, articleRef);
-
-        return () => ctx.revert();
-    }, [post]);
-
     const renderContentBlock = (block: ContentBlock, index: number) => {
         switch (block.type) {
             case "heading":
@@ -90,7 +26,7 @@ const BlogPost = () => {
                     <h2
                         key={index}
                         id={`section-${index}`}
-                        className="blog-content-block blog-heading font-serif text-xl sm:text-2xl md:text-3xl font-bold text-foreground mt-8 mb-4"
+                        className="blog-heading font-serif text-xl sm:text-2xl md:text-3xl font-bold text-foreground mt-8 mb-4"
                     >
                         {block.content}
                     </h2>
@@ -100,7 +36,7 @@ const BlogPost = () => {
                     <h3
                         key={index}
                         id={`section-${index}`}
-                        className="blog-content-block blog-subheading font-serif text-lg sm:text-xl md:text-2xl font-semibold text-foreground mt-6 mb-3"
+                        className="blog-subheading font-serif text-lg sm:text-xl md:text-2xl font-semibold text-foreground mt-6 mb-3"
                     >
                         {block.content}
                     </h3>
@@ -109,14 +45,14 @@ const BlogPost = () => {
                 return (
                     <p
                         key={index}
-                        className="blog-content-block blog-paragraph text-foreground leading-relaxed mb-4 sm:mb-6 text-base sm:text-lg"
+                        className="blog-paragraph text-foreground leading-relaxed mb-4 sm:mb-6 text-base sm:text-lg"
                     >
                         {block.content}
                     </p>
                 );
             case "image":
                 return (
-                    <figure key={index} className="blog-content-block blog-image my-8">
+                    <figure key={index} className="blog-image my-8">
                         <img
                             src={block.src}
                             alt={block.alt || "Blog image"}
@@ -163,7 +99,7 @@ const BlogPost = () => {
             <Navigation />
             <TableOfContents contentRef={contentRef} />
 
-            <article ref={articleRef} className="container mx-auto px-4 pt-24 sm:pt-32 pb-12 sm:pb-20 max-w-4xl">
+            <article ref={articleRef} className="container mx-auto px-4 pt-24 sm:pt-32 pb-12 sm:pb-20 max-w-4xl animate-fade-in">
                 {/* Hero Image */}
                 {post.heroImage && (
                     <div className="relative -mx-4 sm:mx-0 mb-8 sm:mb-12 overflow-hidden rounded-none sm:rounded-2xl">
@@ -222,12 +158,12 @@ const BlogPost = () => {
                 </div>
 
                 {/* Content with scroll animations */}
-                <div ref={contentRef} className="prose prose-lg max-w-none">
+                <div ref={contentRef} className="prose prose-lg max-w-none relative z-10 bg-background">
                     {post.content.map((block, index) => renderContentBlock(block, index))}
                 </div>
 
                 {/* Back Button at Bottom */}
-                <div className="bottom-back-btn mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-border">
+                <div className="mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-border">
                     <Button
                         variant="outline"
                         size="lg"
@@ -239,6 +175,7 @@ const BlogPost = () => {
                     </Button>
                 </div>
             </article>
+
             <ScrollToTop />
         </div>
     );
