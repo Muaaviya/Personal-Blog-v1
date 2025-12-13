@@ -119,16 +119,38 @@ Edit `src/data/blogPosts.ts` to add new blog posts. Each post should follow this
 
 ```typescript
 {
-  id: 1,
-  slug: "unique-url-slug",
+  id: 9, // Unique numeric ID
+  slug: "your-post-url-slug", // URL-friendly slug (used in /blog/:slug)
   title: "Your Post Title",
-  excerpt: "Brief description",
-  content: "Full content here...",
-  category: "Technology",
-  date: "Jan 15, 2025",
-  readTime: "5 min read"
+  excerpt: "Brief description shown on blog cards...",
+  content: [
+    { type: "heading", content: "Section Heading" },
+    { type: "paragraph", content: "Your paragraph text here..." },
+    { type: "subheading", content: "Subsection Heading" },
+    { type: "image", src: "https://example.com/image.jpg", alt: "Image description", caption: "Optional caption" },
+  ],
+  category: "Romantic" | "Philosophical" | "Inspiring" | "Daily Blog", // Choose one
+  date: "March 15, 2024",
+  readTime: "5 min read",
+  heroImage: "https://example.com/hero-image.jpg" // Optional hero image URL
 }
 ```
+
+#### Content Block Types
+
+| Type | Required Fields | Optional Fields | Description |
+|------|-----------------|-----------------|-------------|
+| `heading` | `content` | - | Main section heading (H2) |
+| `subheading` | `content` | - | Subsection heading (H3) |
+| `paragraph` | `content` | - | Body text |
+| `image` | `src`, `alt` | `caption` | Inline image with optional caption |
+
+#### Available Categories
+
+- `Romantic` - Love and relationship content
+- `Philosophical` - Deep thoughts and philosophy
+- `Inspiring` - Motivational content
+- `Daily Blog` - Personal daily musings
 
 ### Customizing Styles
 
