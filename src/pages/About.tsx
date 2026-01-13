@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Github, Twitter, Linkedin, Mail, Heart, BookOpen, Pen } from "lucide-react";
+import { Github, Instagram, Linkedin, Mail, Heart, BookOpen, Pen } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navigation from "@/components/Navigation";
@@ -22,10 +22,10 @@ const About = () => {
   const socialRef = useRef<HTMLDivElement>(null);
 
   const socialLinks = [
-    { icon: Twitter, label: "Twitter", href: "https://twitter.com" },
-    { icon: Github, label: "GitHub", href: "https://github.com" },
-    { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com" },
-    { icon: Mail, label: "Email", href: "mailto:hello@example.com" },
+    { icon: Instagram, label: "Instagram", href: "https://instagram.com/muaaviyaansari007" },
+    { icon: Github, label: "GitHub", href: "https://github.com/Muaaviya" },
+    { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/muaaviya-ansari-33b66b252/" },
+    { icon: Mail, label: "Email", href: "mailto:muaaviyaansari007@gmail.com" },
   ];
 
   const milestones = [
