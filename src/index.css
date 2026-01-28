@@ -7,175 +7,182 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap");
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+@import "tailwindcss";
 
-@layer base {
-  :root {
-    --background: 47.9999 33.4124% 97.0613%;
-    --foreground: 48.0004 19.5733% 20.0067%;
+@custom-variant dark (&:where(.dark, .dark *));
 
-    --card: 47.9999 33.4124% 97.0613%;
-    --card-foreground: 59.9977 2.5881% 7.6423%;
+@theme {
+  /* Colors */
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
 
-    --popover: 300 50% 100.0000%;
-    --popover-foreground: 50.7697 19.3858% 13.1359%;
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
 
-    --primary: 15.1107 55.5301% 52.3487%;
-    --primary-foreground: 300 50% 100.0000%;
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
 
-    --secondary: 46.1535 22.8633% 88.8169%;
-    --secondary-foreground: 50.7703 8.4755% 30.0071%;
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
 
-    --muted: 43.9999 29.4191% 89.9959%;
-    --muted-foreground: 50.0005 2.3533% 50.1937%;
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
 
-    --accent: 46.1535 22.8633% 88.8169%;
-    --accent-foreground: 50.7697 19.3858% 13.1359%;
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
 
-    --destructive: 59.9977 2.5881% 7.6423%;
-    --destructive-foreground: 300 50% 100.0000%;
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
 
-    --border: 49.9994 7.5433% 84.3127%;
-    --input: 50.7685 8.0001% 68.0389%;
-    --ring: 15.1107 55.5301% 52.3487%;
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
 
-    --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
 
-    --sidebar-foreground: 59.9983 2.5347% 23.3334%;
+  --color-sidebar: hsl(var(--sidebar-background));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
 
-    --sidebar-primary: 15.1107 55.5301% 52.3487%;
 
-    --sidebar-primary-foreground: 300 0.0000% 98.4330%;
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
 
-    --sidebar-accent: 46.1535 22.8633% 88.8169%;
 
-    --sidebar-accent-foreground: 330 0.0000% 20.3885%;
+  /* Border radius */
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
 
-    --sidebar-border: 300 0.0000% 92.1607%;
 
-    --sidebar-ring: 330 0.0000% 70.9799%;
+  /* Animations */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
 
-    --chart-1: 18.2817 57.1503% 43.9157%;
+  /* Font families */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-    --chart-2: 251.4525 84.5858% 74.5083%;
 
-    --chart-3: 46.1541 28.2179% 81.9634%;
+  /* Shadows */
+  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
 
-    --chart-4: 256.5505 49.1031% 88.4329%;
 
-    --chart-5: 17.7782 60.0063% 44.1217%;
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
 
-    --sidebar: 51.4288 25.9022% 94.7126%;
-
-    --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-
-    --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-
-    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-
-    --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
-
-    --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
-
-    --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
-
-    --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
-
-    --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
-
-    --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
-
-    --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
-
-    --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
-
-    --tracking-normal: 0em;
-
-    --spacing: 0.25rem;
-
-    --shadow-x: 0;
-
-    --shadow-y: 1px;
-
-    --shadow-blur: 3px;
-
-    --shadow-spread: 0px;
-
-    --shadow-opacity: 0.1;
-
-    --shadow-color: oklch(0 0 0);
+    to {
+      height: var(--radix-accordion-content-height);
+    }
   }
 
-  .dark {
-    --background: 0 0% 6.6634%;
-    --foreground: 320 0.0000% 93.3308%;
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
 
-    --card: 330 0.0000% 9.8019%;
-    --card-foreground: 320 0.0000% 93.3308%;
-
-    --popover: 330 0.0000% 9.8019%;
-    --popover-foreground: 320 0.0000% 93.3308%;
-
-    --primary: 29.5084 100.0059% 88.0354%;
-    --primary-foreground: 183.1585 54.4077% 6.8556%;
-
-    --secondary: 28.2354 17.5301% 19.0152%;
-    --secondary-foreground: 29.5084 100.0059% 88.0354%;
-
-    --muted: 330 0.0000% 13.3366%;
-    --muted-foreground: 300 0.0000% 70.5844%;
-
-    --accent: 320 0.0000% 16.4689%;
-    --accent-foreground: 320 0.0000% 93.3308%;
-
-    --destructive: 10.1640 77.8840% 53.9238%;
-    --destructive-foreground: 300 50% 100.0000%;
-
-    --border: 45.0002 14.2677% 10.9813%;
-    --input: 240 0.0000% 28.2388%;
-    --ring: 29.5084 100.0059% 88.0354%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 239.9999 4.6603% 95.8748%;
-    --sidebar-primary: 224.2793 76.3367% 48.0407%;
-    --sidebar-primary-foreground: 300 50% 100.0000%;
-    --sidebar-accent: 240.0021 3.7193% 15.8808%;
-    --sidebar-accent-foreground: 239.9999 4.6603% 95.8748%;
-    --sidebar-border: 240.0021 3.7193% 15.8808%;
-    --sidebar-ring: 240.0014 4.9228% 83.9262%;
-    --chart-1: 29.5084 100.0059% 88.0354%;
-    --chart-2: 28.2354 17.5301% 19.0152%;
-    --chart-3: 320 0.0000% 16.4689%;
-    --chart-4: 29.9991 17.8272% 21.9595%;
-    --chart-5: 29.9996 99.9460% 87.8458%;
-    --sidebar: 240.0048 5.9215% 10.0003%;
-    --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
-    --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
-    --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
-    --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 1px 2px -1px hsl(0 0% 0% / 0.10);
-    --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 2px 4px -1px hsl(0 0% 0% / 0.10);
-    --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 4px 6px -1px hsl(0 0% 0% / 0.10);
-    --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.10), 0 8px 10px -1px hsl(0 0% 0% / 0.10);
-    --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
-    --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    --radius: 0.5rem;
-    --shadow-x: 0;
-    --shadow-y: 1px;
-    --shadow-blur: 3px;
-    --shadow-spread: 0px;
-    --shadow-opacity: 0.1;
-    --shadow-color: oklch(0 0 0);
+    to {
+      height: 0;
+    }
   }
 }
+
+
+/* CSS Variables for light mode */
+:root {
+  --background: 47.9999 33.4124% 97.0613%;
+  --foreground: 48.0004 19.5733% 20.0067%;
+  --card: 47.9999 33.4124% 97.0613%;
+  --card-foreground: 59.9977 2.5881% 7.6423%;
+  --popover: 300 50% 100.0000%;
+  --popover-foreground: 50.7697 19.3858% 13.1359%;
+  --primary: 15.1107 55.5301% 52.3487%;
+  --primary-foreground: 300 50% 100.0000%;
+  --secondary: 46.1535 22.8633% 88.8169%;
+  --secondary-foreground: 50.7703 8.4755% 30.0071%;
+  --muted: 43.9999 29.4191% 89.9959%;
+  --muted-foreground: 50.0005 2.3533% 50.1937%;
+  --accent: 46.1535 22.8633% 88.8169%;
+  --accent-foreground: 50.7697 19.3858% 13.1359%;
+  --destructive: 59.9977 2.5881% 7.6423%;
+  --destructive-foreground: 300 50% 100.0000%;
+  --border: 49.9994 7.5433% 84.3127%;
+  --input: 50.7685 8.0001% 68.0389%;
+  --ring: 15.1107 55.5301% 52.3487%;
+  --radius: 0.5rem;
+  --sidebar-background: 0 0% 98%;
+  --sidebar-foreground: 59.9983 2.5347% 23.3334%;
+  --sidebar-primary: 15.1107 55.5301% 52.3487%;
+  --sidebar-primary-foreground: 300 0.0000% 98.4330%;
+  --sidebar-accent: 46.1535 22.8633% 88.8169%;
+  --sidebar-accent-foreground: 330 0.0000% 20.3885%;
+  --sidebar-border: 300 0.0000% 92.1607%;
+  --sidebar-ring: 330 0.0000% 70.9799%;
+  --chart-1: 18.2817 57.1503% 43.9157%;
+  --chart-2: 251.4525 84.5858% 74.5083%;
+  --chart-3: 46.1541 28.2179% 81.9634%;
+  --chart-4: 256.5505 49.1031% 88.4329%;
+  --chart-5: 17.7782 60.0063% 44.1217%;
+}
+
+/* CSS Variables for dark mode */
+.dark {
+  --background: 0 0% 6.6634%;
+  --foreground: 320 0.0000% 93.3308%;
+  --card: 330 0.0000% 9.8019%;
+  --card-foreground: 320 0.0000% 93.3308%;
+  --popover: 330 0.0000% 9.8019%;
+  --popover-foreground: 320 0.0000% 93.3308%;
+  --primary: 29.5084 100.0059% 88.0354%;
+  --primary-foreground: 183.1585 54.4077% 6.8556%;
+  --secondary: 28.2354 17.5301% 19.0152%;
+  --secondary-foreground: 29.5084 100.0059% 88.0354%;
+  --muted: 330 0.0000% 13.3366%;
+  --muted-foreground: 300 0.0000% 70.5844%;
+  --accent: 320 0.0000% 16.4689%;
+  --accent-foreground: 320 0.0000% 93.3308%;
+  --destructive: 10.1640 77.8840% 53.9238%;
+  --destructive-foreground: 300 50% 100.0000%;
+  --border: 45.0002 14.2677% 10.9813%;
+  --input: 240 0.0000% 28.2388%;
+  --ring: 29.5084 100.0059% 88.0354%;
+
+  --sidebar-background: 240 5.9% 10%;
+  --sidebar-foreground: 239.9999 4.6603% 95.8748%;
+  --sidebar-primary: 224.2793 76.3367% 48.0407%;
+  --sidebar-primary-foreground: 300 50% 100.0000%;
+  --sidebar-accent: 240.0021 3.7193% 15.8808%;
+  --sidebar-accent-foreground: 239.9999 4.6603% 95.8748%;
+  --sidebar-border: 240.0021 3.7193% 15.8808%;
+  --sidebar-ring: 240.0014 4.9228% 83.9262%;
+  --chart-1: 29.5084 100.0059% 88.0354%;
+  --chart-2: 28.2354 17.5301% 19.0152%;
+  --chart-3: 320 0.0000% 16.4689%;
+  --chart-4: 29.9991 17.8272% 21.9595%;
+  --chart-5: 29.9996 99.9460% 87.8458%;
+}
+
+/* Base styles */
 
 @layer base {
   * {

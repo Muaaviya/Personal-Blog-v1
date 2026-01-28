@@ -75,11 +75,11 @@ const Index = () => {
         </div>
 
         {/* Decorative Elements */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-10" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-background to-transparent z-10" />
       </section>
 
       {/* Stats Section */}
-      <section className="relative py-12 sm:py-40 min-h-[300px]">
+      <section className="relative py-12 sm:py-40 min-h-75">
         <TubesBackground className="absolute inset-0" enableClickInteraction={true} />
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 max-w-8xl mx-auto">
