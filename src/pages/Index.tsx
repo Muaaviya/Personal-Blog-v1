@@ -5,6 +5,7 @@ import Navigation from "@/components/Navigation";
 import { motion } from "framer-motion";
 import Silk from "@/components/Silk";
 import { useBackgroundPreset, backgroundPresets } from "@/contexts/BackgroundPresetContext";
+import TubesBackground from "@/components/ui/neon-flow";
 
 const Index = () => {
   const { currentPreset } = useBackgroundPreset();
@@ -78,9 +79,10 @@ const Index = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-12 sm:py-20 bg-card">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 max-w-5xl mx-auto">
+      <section className="relative py-12 sm:py-40 min-h-[300px]">
+        <TubesBackground className="absolute inset-0" enableClickInteraction={true} />
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 max-w-8xl mx-auto">
             {[
               { number: "100+", label: "Stories Shared" },
               { number: "4", label: "Categories" },
