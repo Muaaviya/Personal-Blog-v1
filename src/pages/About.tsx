@@ -14,262 +14,262 @@ import authorProfile from "@/assets/author-profile.jpg";
 gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
-  const { galaxyEnabled } = useGalaxy();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const profileRef = useRef<HTMLDivElement>(null);
-  const bioRef = useRef<HTMLDivElement>(null);
-  const timelineRef = useRef<HTMLDivElement>(null);
-  const socialRef = useRef<HTMLDivElement>(null);
+    const { galaxyEnabled } = useGalaxy();
+    const containerRef = useRef<HTMLDivElement>(null);
+    const profileRef = useRef<HTMLDivElement>(null);
+    const bioRef = useRef<HTMLDivElement>(null);
+    const timelineRef = useRef<HTMLDivElement>(null);
+    const socialRef = useRef<HTMLDivElement>(null);
 
-  const socialLinks = [
-    { icon: Instagram, label: "Instagram", href: "https://instagram.com/muaaviyaansari007" },
-    { icon: Github, label: "GitHub", href: "https://github.com/Muaaviya" },
-    { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/muaaviya-ansari-33b66b252/" },
-    { icon: Mail, label: "Email", href: "mailto:muaaviyaansari007@gmail.com" },
-  ];
+    const socialLinks = [
+        { icon: Instagram, label: "Instagram", href: "https://instagram.com/muaaviyaansari007" },
+        { icon: Github, label: "GitHub", href: "https://github.com/Muaaviya" },
+        { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/muaaviya" },
+        { icon: Mail, label: "Email", href: "mailto:muaaviyaansari007@gmail.com" },
+    ];
 
-  const milestones = [
-    { year: "2018", title: "Started Writing", description: "Began my journey with personal journaling and short stories" },
-    { year: "2020", title: "First Publication", description: "Published my first article on philosophy and modern life" },
-    { year: "2022", title: "Growing Community", description: "Built a community of readers who resonate with my thoughts" },
-    { year: "2024", title: "This Blog", description: "Launched this space to share deeper reflections and connect" },
-  ];
+    const milestones = [
+        { year: "2018", title: "Started Writing", description: "Began my journey with personal journaling and short stories" },
+        { year: "2020", title: "First Publication", description: "Published my first article on philosophy and modern life" },
+        { year: "2022", title: "Growing Community", description: "Built a community of readers who resonate with my thoughts" },
+        { year: "2024", title: "This Blog", description: "Launched this space to share deeper reflections and connect" },
+    ];
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Profile section parallax - slower scroll
-      if (profileRef.current) {
-        gsap.to(profileRef.current, {
-          yPercent: -20,
-          ease: "none",
-          scrollTrigger: {
-            trigger: profileRef.current,
-            start: "top top",
-            end: "bottom top",
-            scrub: 1,
-          },
-        });
-      }
-
-      // Bio section - slide in from left with parallax
-      if (bioRef.current) {
-        gsap.fromTo(
-          bioRef.current,
-          { x: -100, opacity: 0 },
-          {
-            x: 0,
-            opacity: 1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: bioRef.current,
-              start: "top 80%",
-              end: "top 40%",
-              scrub: 1,
-            },
-          }
-        );
-      }
-
-      // Timeline section - staggered parallax for each milestone
-      if (timelineRef.current) {
-        const cards = timelineRef.current.querySelectorAll(".milestone-card");
-        cards.forEach((card, index) => {
-          gsap.fromTo(
-            card,
-            {
-              x: index % 2 === 0 ? -80 : 80,
-              opacity: 0,
-              scale: 0.9
-            },
-            {
-              x: 0,
-              opacity: 1,
-              scale: 1,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: card,
-                start: "top 85%",
-                end: "top 50%",
-                scrub: 1,
-              },
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            // Profile section parallax - slower scroll
+            if (profileRef.current) {
+                gsap.to(profileRef.current, {
+                    yPercent: -20,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: profileRef.current,
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: 1,
+                    },
+                });
             }
-          );
-        });
-      }
 
-      // Social section - fade in with upward parallax
-      if (socialRef.current) {
-        gsap.fromTo(
-          socialRef.current,
-          { y: 80, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: socialRef.current,
-              start: "top 90%",
-              end: "top 60%",
-              scrub: 1,
-            },
-          }
-        );
-      }
-    }, containerRef);
+            // Bio section - slide in from left with parallax
+            if (bioRef.current) {
+                gsap.fromTo(
+                    bioRef.current,
+                    { x: -100, opacity: 0 },
+                    {
+                        x: 0,
+                        opacity: 1,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: bioRef.current,
+                            start: "top 80%",
+                            end: "top 40%",
+                            scrub: 1,
+                        },
+                    }
+                );
+            }
 
-    return () => ctx.revert();
-  }, []);
+            // Timeline section - staggered parallax for each milestone
+            if (timelineRef.current) {
+                const cards = timelineRef.current.querySelectorAll(".milestone-card");
+                cards.forEach((card, index) => {
+                    gsap.fromTo(
+                        card,
+                        {
+                            x: index % 2 === 0 ? -80 : 80,
+                            opacity: 0,
+                            scale: 0.9
+                        },
+                        {
+                            x: 0,
+                            opacity: 1,
+                            scale: 1,
+                            ease: "power2.out",
+                            scrollTrigger: {
+                                trigger: card,
+                                start: "top 85%",
+                                end: "top 50%",
+                                scrub: 1,
+                            },
+                        }
+                    );
+                });
+            }
 
-  return (
-    <div ref={containerRef} className="min-h-screen bg-background relative">
-      {/* Galaxy Background */}
-      {galaxyEnabled && (
-        <div className="fixed inset-0 z-0">
-          <Galaxy
-            mouseRepulsion={true}
-            mouseInteraction={true}
-            density={1.5}
-            glowIntensity={0.5}
-            saturation={0.8}
-            hueShift={240}
-          />
-        </div>
-      )}
+            // Social section - fade in with upward parallax
+            if (socialRef.current) {
+                gsap.fromTo(
+                    socialRef.current,
+                    { y: 80, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: socialRef.current,
+                            start: "top 90%",
+                            end: "top 60%",
+                            scrub: 1,
+                        },
+                    }
+                );
+            }
+        }, containerRef);
 
-      <Navigation />
+        return () => ctx.revert();
+    }, []);
 
-      <main className="container mx-auto px-4 pt-20 sm:pt-24 pb-32 sm:pb-40 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto"
-        >
-          {/* Profile Section */}
-          <div ref={profileRef} className="text-center mb-16">
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="mb-8"
-            >
-              <Avatar className="w-32 h-32 mx-auto border-4 border-primary/20">
-                <AvatarImage src={authorProfile} alt="Author" />
-                <AvatarFallback>AU</AvatarFallback>
-              </Avatar>
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4"
-            >
-              About Me
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="text-muted-foreground text-lg max-w-2xl mx-auto"
-            >
-              Writer. Thinker. Dreamer.
-            </motion.p>
-          </div>
-
-          {/* Bio Section */}
-          <div ref={bioRef} className="mb-16">
-            <Card className="bg-card/80 backdrop-blur-sm">
-              <CardContent className="p-4 sm:p-8">
-                <div className="flex items-center gap-3 mb-4 sm:mb-6">
-                  <Heart className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
-                  <h2 className="font-serif text-xl sm:text-2xl font-bold text-foreground">My Story</h2>
+    return (
+        <div ref={containerRef} className="min-h-screen bg-background relative">
+            {/* Galaxy Background */}
+            {galaxyEnabled && (
+                <div className="fixed inset-0 z-0">
+                    <Galaxy
+                        mouseRepulsion={true}
+                        mouseInteraction={true}
+                        density={1.5}
+                        glowIntensity={0.5}
+                        saturation={0.8}
+                        hueShift={240}
+                    />
                 </div>
-                <div className="prose prose-lg max-w-none text-muted-foreground space-y-4">
-                  <p>
-                    Welcome to my corner of the internet. I'm a passionate writer who believes in the power of words to inspire, heal, and transform. Through my writing, I explore the depths of human emotion, the complexities of modern life, and the timeless questions that connect us all.
-                  </p>
-                  <p>
-                    My journey with words began in quiet moments of reflection, journaling thoughts that felt too big to keep inside. What started as personal musings evolved into a calling—to share stories and insights that might resonate with others walking similar paths.
-                  </p>
-                  <p>
-                    Here, you'll find a blend of romantic reflections, philosophical inquiries, inspiring narratives, and glimpses into my daily life. Each piece is crafted with care, hoping to spark something meaningful in you—whether it's a moment of clarity, a smile, or simply the comfort of knowing you're not alone in your thoughts.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+            )}
 
-          {/* Writing Journey Timeline */}
-          <div ref={timelineRef} className="mb-16">
-            <div className="flex items-center gap-3 mb-6 sm:mb-8">
-              <BookOpen className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
-              <h2 className="font-serif text-xl sm:text-2xl font-bold text-foreground">Writing Journey</h2>
-            </div>
-            <div className="space-y-6">
-              {milestones.map((milestone) => (
-                <div key={milestone.year} className="milestone-card">
-                  <Card className="overflow-hidden hover:shadow-lg transition-shadow bg-card/80 backdrop-blur-sm">
-                    <CardContent className="p-4 sm:p-6">
-                      <div className="flex gap-4 sm:gap-6">
-                        <div className="flex-shrink-0">
-                          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-primary/10 flex items-center justify-center">
-                            <span className="font-bold text-primary text-sm sm:text-base">{milestone.year}</span>
-                          </div>
-                        </div>
-                        <div>
-                          <h3 className="font-serif text-lg sm:text-xl font-bold text-foreground mb-1 sm:mb-2">
-                            {milestone.title}
-                          </h3>
-                          <p className="text-muted-foreground text-sm sm:text-base">{milestone.description}</p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              ))}
-            </div>
-          </div>
+            <Navigation />
 
-          {/* Social Links */}
-          <div ref={socialRef} className="text-center">
-            <div className="flex items-center justify-center gap-3 mb-4 sm:mb-6">
-              <Pen className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
-              <h2 className="font-serif text-xl sm:text-2xl font-bold text-foreground">Let's Connect</h2>
-            </div>
-            <p className="text-muted-foreground mb-6 sm:mb-8 text-sm sm:text-base">
-              I'd love to hear from you. Follow me on social media or drop me an email.
-            </p>
-            <div className="flex justify-center gap-3 sm:gap-4 flex-wrap">
-              {socialLinks.map((link, index) => (
+            <main className="container mx-auto px-4 pt-20 sm:pt-24 pb-32 sm:pb-40 relative z-10">
                 <motion.div
-                  key={link.label}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: 0.2 + index * 0.1 }}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="max-w-4xl mx-auto"
                 >
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    asChild
-                    className="gap-2"
-                  >
-                    <a href={link.href} target="_blank" rel="noopener noreferrer">
-                      <link.icon className="h-5 w-5" />
-                      {link.label}
-                    </a>
-                  </Button>
+                    {/* Profile Section */}
+                    <div ref={profileRef} className="text-center mb-16">
+                        <motion.div
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                            className="mb-8"
+                        >
+                            <Avatar className="w-32 h-32 mx-auto border-4 border-primary/20">
+                                <AvatarImage src={authorProfile} alt="Author" />
+                                <AvatarFallback>AU</AvatarFallback>
+                            </Avatar>
+                        </motion.div>
+
+                        <motion.h1
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.3 }}
+                            className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4"
+                        >
+                            About Me
+                        </motion.h1>
+
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.4 }}
+                            className="text-muted-foreground text-lg max-w-2xl mx-auto"
+                        >
+                            Writer. Thinker. Dreamer.
+                        </motion.p>
+                    </div>
+
+                    {/* Bio Section */}
+                    <div ref={bioRef} className="mb-16">
+                        <Card className="bg-card/80 backdrop-blur-sm">
+                            <CardContent className="p-4 sm:p-8">
+                                <div className="flex items-center gap-3 mb-4 sm:mb-6">
+                                    <Heart className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                                    <h2 className="font-serif text-xl sm:text-2xl font-bold text-foreground">My Story</h2>
+                                </div>
+                                <div className="prose prose-lg max-w-none text-muted-foreground space-y-4">
+                                    <p>
+                                        Welcome to my corner of the internet. I'm a passionate writer who believes in the power of words to inspire, heal, and transform. Through my writing, I explore the depths of human emotion, the complexities of modern life, and the timeless questions that connect us all.
+                                    </p>
+                                    <p>
+                                        My journey with words began in quiet moments of reflection, journaling thoughts that felt too big to keep inside. What started as personal musings evolved into a calling—to share stories and insights that might resonate with others walking similar paths.
+                                    </p>
+                                    <p>
+                                        Here, you'll find a blend of romantic reflections, philosophical inquiries, inspiring narratives, and glimpses into my daily life. Each piece is crafted with care, hoping to spark something meaningful in you—whether it's a moment of clarity, a smile, or simply the comfort of knowing you're not alone in your thoughts.
+                                    </p>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </div>
+
+                    {/* Writing Journey Timeline */}
+                    <div ref={timelineRef} className="mb-16">
+                        <div className="flex items-center gap-3 mb-6 sm:mb-8">
+                            <BookOpen className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                            <h2 className="font-serif text-xl sm:text-2xl font-bold text-foreground">Writing Journey</h2>
+                        </div>
+                        <div className="space-y-6">
+                            {milestones.map((milestone) => (
+                                <div key={milestone.year} className="milestone-card">
+                                    <Card className="overflow-hidden hover:shadow-lg transition-shadow bg-card/80 backdrop-blur-sm">
+                                        <CardContent className="p-4 sm:p-6">
+                                            <div className="flex gap-4 sm:gap-6">
+                                                <div className="flex-shrink-0">
+                                                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                                                        <span className="font-bold text-primary text-sm sm:text-base">{milestone.year}</span>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <h3 className="font-serif text-lg sm:text-xl font-bold text-foreground mb-1 sm:mb-2">
+                                                        {milestone.title}
+                                                    </h3>
+                                                    <p className="text-muted-foreground text-sm sm:text-base">{milestone.description}</p>
+                                                </div>
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Social Links */}
+                    <div ref={socialRef} className="text-center">
+                        <div className="flex items-center justify-center gap-3 mb-4 sm:mb-6">
+                            <Pen className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                            <h2 className="font-serif text-xl sm:text-2xl font-bold text-foreground">Let's Connect</h2>
+                        </div>
+                        <p className="text-muted-foreground mb-6 sm:mb-8 text-sm sm:text-base">
+                            I'd love to hear from you. Follow me on social media or drop me an email.
+                        </p>
+                        <div className="flex justify-center gap-3 sm:gap-4 flex-wrap">
+                            {socialLinks.map((link, index) => (
+                                <motion.div
+                                    key={link.label}
+                                    initial={{ opacity: 0, scale: 0.8 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.3, delay: 0.2 + index * 0.1 }}
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.95 }}
+                                >
+                                    <Button
+                                        variant="outline"
+                                        size="lg"
+                                        asChild
+                                        className="gap-2"
+                                    >
+                                        <a href={link.href} target="_blank" rel="noopener noreferrer">
+                                            <link.icon className="h-5 w-5" />
+                                            {link.label}
+                                        </a>
+                                    </Button>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
                 </motion.div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-      </main>
-    </div>
-  );
+            </main>
+        </div>
+    );
 };
 
 export default About;
