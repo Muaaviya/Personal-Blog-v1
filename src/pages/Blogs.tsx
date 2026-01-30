@@ -123,7 +123,7 @@ const Blogs = () => {
                                 onClick={() => setSelectedCategory(category)}
                                 variant={selectedCategory === category ? "default" : "outline"}
                                 size="sm"
-                                className="min-w-[80px] sm:min-w-[120px] text-xs sm:text-sm"
+                                className="min-w-20 sm:min-w-30 text-xs sm:text-sm"
                             >
                                 {category}
                             </Button>

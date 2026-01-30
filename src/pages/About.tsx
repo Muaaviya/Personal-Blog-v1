@@ -213,7 +213,7 @@ const About = () => {
                                     <Card className="overflow-hidden hover:shadow-lg transition-shadow bg-card/80 backdrop-blur-sm">
                                         <CardContent className="p-4 sm:p-6">
                                             <div className="flex gap-4 sm:gap-6">
-                                                <div className="flex-shrink-0">
+                                                <div className="shrink-0">
                                                     <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-primary/10 flex items-center justify-center">
                                                         <span className="font-bold text-primary text-sm sm:text-base">{milestone.year}</span>
                                                     </div>
